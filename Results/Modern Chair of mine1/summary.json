@@ -1,0 +1,30 @@
+{
+    "model_id": "Modern Chair of mine1",
+    "bbox_min": [
+        -108.0,
+        -108.0,
+        0.053514719009399414
+    ],
+    "bbox_max": [
+        108.0,
+        108.0,
+        7.364071846008301
+    ],
+    "dimensions": [
+        216.0,
+        216.0,
+        7.310557126998901
+    ],
+    "surface_area": 46690.8346,
+    "volume": 204648.812,   
+    "triangle_count": 66052,
+    "vertex_count": 32880,
+    "curvature_std": 0.571233,
+    "curvature_mean": 0.446471,
+    "centroid": [
+        0.0005,
+        0.0013,
+        0.0595
+    ],
+    "is_watertight": false
+}
