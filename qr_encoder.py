@@ -1,35 +1,46 @@
 import json
 import zlib
 import base64
-import qrcode #
+import qrcode
 import os
+import struct
 
 class LatentQREncoder:
     def __init__(self, error_correction=qrcode.constants.ERROR_CORRECT_L):
         # Using ERROR_CORRECT_L (approx 7% error correction) maximizes data capacity
         self.error_correction = error_correction
 
-    def compress_features(self, feature_data: dict) -> str:
-        """Strips, compresses, and encodes the feature payload."""
+    def compress_features(self, payload: dict) -> str:
+        """
+        Extracts the latent vector, packs it into binary, and compresses it.
+        """
+        # Retrieve the 512-D latent vector
+        latent_vector = payload.get("latent_vector", [])
         
-        # 1. Isolate only the data the Generative AI needs to reconstruct the shape
-        # We use single-character keys to save JSON string space
-        latent_payload = {
-            "v": feature_data.get("feature_vector", []),
-            "s": feature_data.get("slice_signature", []),
-            "t": feature_data.get("chair_type", "unknown")
-        }
+        if not latent_vector:
+            print("[WARNING] No latent vector provided to QR Encoder. Using zeros.")
+            latent_vector = [0.0] * 512
 
-        # 2. Convert to string with zero whitespace
-        json_str = json.dumps(latent_payload, separators=(',', ':'))
-        
-        # 3. Compress using zlib
-        compressed_bytes = zlib.compress(json_str.encode('utf-8'))
-        
-        # 4. Encode to Base64 (more space-efficient than hex for QR codes)
-        encoded_string = base64.b64encode(compressed_bytes).decode('utf-8')
-        
-        return encoded_string
+        try:
+            # 1. Binary Packing: Pack floats into 16-bit half-precision ('e' format)
+            # This cuts the size in half compared to standard 32-bit floats
+            pack_format = f'{len(latent_vector)}e'
+            binary_data = struct.pack(pack_format, *latent_vector)
+            
+            # 2. Compress using zlib at maximum compression level (9)
+            compressed_bytes = zlib.compress(binary_data, level=9)
+            
+            # 3. Encode to Base64 (QR codes encode alphanumeric/byte data efficiently)
+            encoded_string = base64.b64encode(compressed_bytes).decode('utf-8')
+            
+            return encoded_string
+            
+        except struct.error as e:
+            print(f"[ERROR] Binary packing failed: {e}. Falling back to JSON compression.")
+            # Fallback if the packing format fails for any reason
+            json_str = json.dumps(latent_vector, separators=(',', ':'))
+            compressed_bytes = zlib.compress(json_str.encode('utf-8'), level=9)
+            return base64.b64encode(compressed_bytes).decode('utf-8')
 
     def generate_qr(self, encoded_data: str, output_path: str):
         """Generates and saves the QR code image."""
@@ -47,18 +58,4 @@ class LatentQREncoder:
         img = qr.make_image(fill_color="black", back_color="white")
         img.save(output_path)
         
-        print(f"[QR] Compressed {len(encoded_data)} characters into QR code -> {output_path}")
-
-# --- Example Usage ---
-if __name__ == "__main__":
-    encoder = LatentQREncoder()
-    
-    # Simulating loading from your main.py pipeline
-    feature_path = "results/sample_chair/features.json"
-    
-    if os.path.exists(feature_path):
-        with open(feature_path, 'r') as f:
-            features = json.load(f)
-            
-        encoded_payload = encoder.compress_features(features)
-        encoder.generate_qr(encoded_payload, "results/sample_chair/latent_qr.png")
+        print(f"[QR] Embedded {len(encoded_data)} characters of latent space into QR code -> {output_path}")

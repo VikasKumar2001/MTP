@@ -4,13 +4,11 @@ import trimesh
 import os
 import json
 
-
 class STLLoader:
     def __init__(self):
         self.models = {}
 
     def load_stl(self, filepath: str, model_id: str = None) -> dict:
-        """Load a single STL file and extract raw geometry."""
         if model_id is None:
             model_id = os.path.basename(filepath).replace('.stl', '')
 
@@ -72,7 +70,6 @@ class STLLoader:
             raise ValueError(f"Failed to load STL '{filepath}': {e}")
 
     def _estimate_volume(self, tm: trimesh.Trimesh) -> float:
-        """Estimate volume for non-watertight meshes via bounding box approximation."""
         bounds = tm.bounds
         dims = bounds[1] - bounds[0]
         bbox_vol = float(dims[0] * dims[1] * dims[2])

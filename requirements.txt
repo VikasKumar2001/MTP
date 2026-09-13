@@ -1,0 +1,37 @@
+# Core numerical / scientific computing
+numpy
+scipy
+pandas
+
+# 3D CAD / mesh processing
+trimesh
+numpy-stl
+open3d
+pyvista
+shapely
+scikit-image
+libigl
+
+
+# Deep learning
+torch
+torchvision
+transformers
+timm
+
+# Image processing
+Pillow
+
+# QR generation / decoding
+qrcode[pil]
+opencv-python
+pyzbar
+
+# Visualization
+matplotlib
+seaborn
+
+# Data / utilities
+tqdm
+scikit-learn
+# pytorch3d

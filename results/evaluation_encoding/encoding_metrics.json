@@ -1,0 +1,75 @@
+{
+    "Average_Execution_Times_Seconds": {
+        "Geometry": 0.0094,
+        "Slice": 0.0,
+        "ShapeDNA": 12.5778,
+        "FPFH": 0.0676,
+        "PointNet": 0.1368,
+        "DINOv2": 3.1661,
+        "QREncoding": 0.2859
+    },
+    "Compression": {
+        "Average_Ratio": 10659.49,
+        "Details": [
+            {
+                "model_id": "airport",
+                "stl_size_bytes": 13034384,
+                "qr_payload_bytes": 1356,
+                "compression_ratio": 9612.377581120943
+            },
+            {
+                "model_id": "Airport_Chairs",
+                "stl_size_bytes": 749684,
+                "qr_payload_bytes": 1360,
+                "compression_ratio": 551.2382352941177
+            },
+            {
+                "model_id": "Chair4",
+                "stl_size_bytes": 2772084,
+                "qr_payload_bytes": 1360,
+                "compression_ratio": 2038.2970588235294
+            },
+            {
+                "model_id": "Executive+Office+Chair",
+                "stl_size_bytes": 51774084,
+                "qr_payload_bytes": 1348,
+                "compression_ratio": 38408.07418397626
+            },
+            {
+                "model_id": "Gaming chair",
+                "stl_size_bytes": 32073884,
+                "qr_payload_bytes": 1344,
+                "compression_ratio": 23864.497023809523
+            },
+            {
+                "model_id": "Modern Chair of mine1",
+                "stl_size_bytes": 3302684,
+                "qr_payload_bytes": 1356,
+                "compression_ratio": 2435.607669616519
+            },
+            {
+                "model_id": "Office chair",
+                "stl_size_bytes": 6096684,
+                "qr_payload_bytes": 1336,
+                "compression_ratio": 4563.38622754491
+            },
+            {
+                "model_id": "Waiting+Char",
+                "stl_size_bytes": 5186554,
+                "qr_payload_bytes": 1364,
+                "compression_ratio": 3802.458944281525
+            }
+        ]
+    },
+    "Baseline_Retrieval_Accuracy": {
+        "top_1_accuracy": 0.0,
+        "top_5_accuracy": 0.0
+    },
+    "Ablation_Study_Top1_Accuracy": {
+        "Without FPFH": 0.0,
+        "Without SLICE": 0.0,
+        "Without POINTNET": 0.0,
+        "Without DINOV2": 0.0,
+        "Without SHAPE": 0.0
+    }
+}

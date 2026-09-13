@@ -1,0 +1,9 @@
+Rank,Model ID,QR Path,Cosine Similarity,Similarity Percentage,Category
+1,Airport_Chairs,all_qr\Airport_Chairs.png,0.49566,49.57,Low
+2,Waiting+Char,all_qr\Waiting+Char.png,0.133679,13.37,Very Low
+3,airport,all_qr\airport.png,-0.029878,-2.99,Very Low
+4,Office chair,all_qr\Office chair.png,-0.05786,-5.79,Very Low
+5,Executive+Office+Chair,all_qr\Executive+Office+Chair.png,-0.115621,-11.56,Very Low
+6,Modern Chair of mine1,all_qr\Modern Chair of mine1.png,-0.145849,-14.58,Very Low
+7,Chair4,all_qr\Chair4.png,-0.14999,-15.0,Very Low
+8,Gaming chair,all_qr\Gaming chair.png,-0.193773,-19.38,Very Low
